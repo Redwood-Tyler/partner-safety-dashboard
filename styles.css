@@ -1,0 +1,265 @@
+/**
+ * styles.css — Dashboard styling
+ * Redwood Services · Partner Safety Scorecard Dashboard · FY 2025–26
+ */
+
+/* ── Reset & base ─────────────────────────────────────────────────────────── */
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background: #f0f2f7;
+  color: #1a1a2e;
+  font-size: 13px;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.app-header {
+  background: #1B3A6B;
+  color: white;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-left  { display: flex; align-items: center; gap: 12px; }
+.header-logo  { font-size: 28px; line-height: 1; }
+.header-title { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+.header-sub   { font-size: 12px; color: #B8C9E8; margin-top: 2px; }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.header-date  { font-size: 11px; color: #B8C9E8; }
+
+/* ── Portfolio summary bar ────────────────────────────────────────────────── */
+.portfolio-bar {
+  background: white;
+  border-bottom: 1px solid #e0e4ef;
+  padding: 12px 20px;
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.pstat {
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  border-right: 1px solid #eef;
+  padding: 4px 12px;
+}
+.pstat:last-child { border-right: none; }
+.pstat-val { font-size: 22px; font-weight: 700; color: #1B3A6B; line-height: 1; }
+.pstat-val.red   { color: #991b1b; }
+.pstat-val.amber { color: #856404; }
+.pstat-val.green { color: #155724; }
+.pstat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
+
+/* ── Filter & sort controls ───────────────────────────────────────────────── */
+.controls-bar {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #f0f2f7;
+}
+.filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.ftab {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  transition: all 0.15s;
+}
+.ftab:hover { border-color: #aaa; }
+.ftab.active { color: white; border-color: transparent; }
+.ftab[data-filter="all"].active              { background: #1B3A6B; }
+.ftab[data-filter="CRITICAL"].active         { background: #991b1b; }
+.ftab[data-filter="NEEDS IMPROVEMENT"].active{ background: #C05621; }
+.ftab[data-filter="MONITOR"].active          { background: #856404; }
+.ftab[data-filter="GOOD"].active             { background: #155724; }
+.sort-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #555;
+}
+.sort-controls select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* ── Partner card grid ────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  padding: 12px 20px 20px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e0e4ef;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+.card:hover { box-shadow: 0 4px 12px rgba(27,58,107,0.12); transform: translateY(-1px); }
+
+/* Card header */
+.card-header { padding: 12px 14px 10px; display: flex; align-items: flex-start; justify-content: space-between; }
+.card-name { font-size: 14px; font-weight: 700; color: #1B3A6B; flex: 1; }
+
+/* Rating badges */
+.rating-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 12px; white-space: nowrap; margin-left: 6px; margin-top: 1px; }
+.badge-CRITICAL          { background: #F8D7DA; color: #7B1E2A; }
+.badge-NEEDS_IMPROVEMENT { background: #FDE8C8; color: #7D4000; }
+.badge-MONITOR           { background: #FFF8D6; color: #6D5000; }
+.badge-GOOD              { background: #D4EDDA; color: #1A5C2E; }
+
+/* Color-coded top stripe */
+.card-stripe { height: 3px; }
+.stripe-CRITICAL          { background: #dc2626; }
+.stripe-NEEDS_IMPROVEMENT { background: #ea580c; }
+.stripe-MONITOR           { background: #ca8a04; }
+.stripe-GOOD              { background: #16a34a; }
+
+/* Stats grid inside card */
+.card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #f0f2f7;
+  border-top: 1px solid #eef;
+  border-bottom: 1px solid #eef;
+}
+.stat-box { background: white; padding: 8px 6px; text-align: center; }
+.stat-val { font-size: 18px; font-weight: 700; color: #1B3A6B; line-height: 1; }
+.stat-val.red   { color: #991b1b; }
+.stat-val.amber { color: #856404; }
+.stat-label { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+/* Card footer */
+.card-footer { padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; }
+.trend-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.trend-up   { background: #FDE8E8; color: #991b1b; }
+.trend-down { background: #D4EDDA; color: #155724; }
+.trend-flat { background: #F3F4F6; color: #6b7280; }
+.open-count { font-size: 11px; color: #888; }
+.open-count strong { color: #333; }
+.detail-toggle { font-size: 11px; color: #1B3A6B; font-weight: 600; }
+
+/* ── Detail panel (expandable) ────────────────────────────────────────────── */
+.detail-panel { display: none; border-top: 1px solid #e0e4ef; background: #fafbfd; padding: 14px; }
+.detail-panel.open { display: block; }
+.dp-section { margin-bottom: 12px; }
+.dp-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1B3A6B;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 7px;
+  border-bottom: 1px solid #e0e4ef;
+  padding-bottom: 4px;
+}
+
+/* Category rating grid */
+.cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.cat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: white;
+  border: 1px solid #eef;
+}
+.cat-name { font-size: 11px; color: #444; }
+.cat-badge { font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
+
+/* Monthly trend mini bar chart */
+.mini-trend { display: flex; align-items: flex-end; gap: 3px; height: 40px; }
+.mini-bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.mini-bar { border-radius: 2px 2px 0 0; min-height: 3px; width: 100%; }
+.mini-bar.c0 { background: #86efac; }
+.mini-bar.c2 { background: #fde68a; }
+.mini-bar.c3 { background: #fca5a5; }
+.mini-label { font-size: 8px; color: #aaa; margin-top: 2px; white-space: nowrap; }
+
+/* Open claims list */
+.open-list { display: flex; flex-direction: column; gap: 3px; }
+.open-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 7px;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid #eef;
+}
+.oi-type { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 6px; white-space: nowrap; }
+.oi-wc   { background: #FDE8E8; color: #991b1b; }
+.oi-auto { background: #EBF3FF; color: #2563EB; }
+.oi-gl   { background: #FFF3CD; color: #856404; }
+.oi-name { font-size: 11px; color: #333; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oi-days { font-size: 10px; font-weight: 600; color: #991b1b; white-space: nowrap; }
+
+/* No results message */
+.no-results { grid-column: 1/-1; text-align: center; padding: 40px; color: #888; font-size: 14px; }
+
+/* ── Financial section ────────────────────────────────────────────────────── */
+.fin-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: #e8edf5;
+  border-top: 1px solid #e0e4ef;
+}
+.fin-cell { background: #f8f9fc; padding: 6px 8px; text-align: center; }
+.fin-cell .fv { font-size: 13px; font-weight: 700; color: #1B3A6B; line-height: 1; }
+.fin-cell .fv.red { color: #991b1b; }
+.fin-cell .fl { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+.fin-detail-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 4px; }
+.fin-detail-table th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 10px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 3px 6px;
+  border-bottom: 1px solid #e8edf5;
+}
+.fin-detail-table td { padding: 4px 6px; border-bottom: 1px solid #f3f4f6; color: #333; }
+.fin-detail-table tr:last-child td { border-bottom: none; }
+.fin-bar-wrap { display: flex; align-items: center; gap: 5px; }
+.fin-bar-bg { flex: 1; height: 5px; background: #eee; border-radius: 3px; overflow: hidden; }
+.fin-bar-fill { height: 5px; border-radius: 3px; background: #1B3A6B; }
+.fin-note { font-size: 10px; color: #aaa; font-style: italic; padding: 4px 0 0; }
+
+/* ── Incurred rank + Exp. risk score ──────────────────────────────────────── */
+.rank-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #d0d7eb; border-top: 1px solid #e0e4ef; }
+.rank-cell { padding: 7px 10px; text-align: center; }
+.rank-val  { font-size: 17px; font-weight: 800; line-height: 1; }
+.rank-lbl  { font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
+
+/* ── Snapshot banner ──────────────────────────────────────────────────────── */
+.snapshot-banner {
+  background: #fffbeb;
+  border-top: 1px solid #fde68a;
+  padding: 8px 20px;
+  font-size: 11px;
+  color: #92400e;
+  text-align: center;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redwood Services · Partner Safety Dashboard · FY 2025–26</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="header-logo">🏗</div>
+      <div>
+        <div class="header-title">Partner Safety Dashboard</div>
+        <div class="header-sub">Redwood Services · FY 2025–26 · Jun 2025 – May 2026</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div id="last-updated" class="header-date">Loading…</div>
+    </div>
+  </header>
+
+  <!-- ── Portfolio summary bar ────────────────────────────────────────────── -->
+  <div id="portfolio-bar" class="portfolio-bar">
+    <!-- Populated by renderPortfolio() in app.js -->
+  </div>
+
+  <!-- ── Filter + sort controls ───────────────────────────────────────────── -->
+  <div class="controls-bar">
+    <div class="filter-tabs">
+      <button class="ftab active" data-filter="all"              onclick="setFilter('all')">All Partners</button>
+      <button class="ftab"        data-filter="CRITICAL"         onclick="setFilter('CRITICAL')">🔴 Critical</button>
+      <button class="ftab"        data-filter="NEEDS IMPROVEMENT" onclick="setFilter('NEEDS IMPROVEMENT')">🟠 Needs Improvement</button>
+      <button class="ftab"        data-filter="MONITOR"          onclick="setFilter('MONITOR')">🟡 Monitor</button>
+      <button class="ftab"        data-filter="GOOD"             onclick="setFilter('GOOD')">🟢 Good</button>
+    </div>
+    <div class="sort-controls">
+      <label>Sort:
+        <select onchange="setSort(this.value)">
+          <option value="rating">By Rating</option>
+          <option value="name">By Name</option>
+          <option value="total">By Total Claims</option>
+          <option value="open">By Open Claims</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <!-- ── Main content ─────────────────────────────────────────────────────── -->
+  <main id="main" style="display:none">
+    <div id="grid" class="card-grid">
+      <!-- Partner cards injected by renderGrid() in app.js -->
+    </div>
+
+    <!-- Static data snapshot banner -->
+    <div class="snapshot-banner">
+      📸 Static snapshot · Monday.com Board 8584529295 · Safety National as of 06-25-2026 · Exposures FY 2025–26
+    </div>
+  </main>
+
+  <!-- ── Scripts (order matters: config → data → app) ────────────────────── -->
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
+
+</body>
+</html>
