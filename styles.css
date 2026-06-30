@@ -14,7 +14,7 @@ body {
 }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
-.app-header {
+.header {
   background: #1B3A6B;
   color: white;
   padding: 14px 20px;
@@ -22,12 +22,10 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-.header-left  { display: flex; align-items: center; gap: 12px; }
-.header-logo  { font-size: 28px; line-height: 1; }
-.header-title { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
-.header-sub   { font-size: 12px; color: #B8C9E8; margin-top: 2px; }
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+.header-sub { font-size: 12px; color: #B8C9E8; margin-top: 2px; }
 .header-right { display: flex; align-items: center; gap: 12px; }
-.header-date  { font-size: 11px; color: #B8C9E8; }
+.last-updated { font-size: 11px; color: #B8C9E8; }
 
 /* ── Portfolio summary bar ────────────────────────────────────────────────── */
 .portfolio-bar {
@@ -53,7 +51,7 @@ body {
 .pstat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
 
 /* ── Filter & sort controls ───────────────────────────────────────────────── */
-.controls-bar {
+.controls {
   padding: 12px 20px;
   display: flex;
   align-items: center;
@@ -61,7 +59,7 @@ body {
   flex-wrap: wrap;
   background: #f0f2f7;
 }
-.filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-tabs { display: flex; gap: 6px; }
 .ftab {
   padding: 5px 12px;
   border-radius: 20px;
@@ -73,22 +71,14 @@ body {
   color: #555;
   transition: all 0.15s;
 }
-.ftab:hover { border-color: #aaa; }
 .ftab.active { color: white; border-color: transparent; }
 .ftab[data-filter="all"].active              { background: #1B3A6B; }
 .ftab[data-filter="CRITICAL"].active         { background: #991b1b; }
 .ftab[data-filter="NEEDS IMPROVEMENT"].active{ background: #C05621; }
 .ftab[data-filter="MONITOR"].active          { background: #856404; }
 .ftab[data-filter="GOOD"].active             { background: #155724; }
-.sort-controls {
+.sort-select {
   margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #555;
-}
-.sort-controls select {
   padding: 5px 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -99,11 +89,11 @@ body {
 }
 
 /* ── Partner card grid ────────────────────────────────────────────────────── */
-.card-grid {
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 12px;
-  padding: 12px 20px 20px;
+  padding: 0 20px 20px;
 }
 .card {
   background: white;
@@ -257,7 +247,7 @@ body {
 /* ── Snapshot banner ──────────────────────────────────────────────────────── */
 .snapshot-banner {
   background: #fffbeb;
-  border-top: 1px solid #fde68a;
+  border-bottom: 1px solid #fde68a;
   padding: 8px 20px;
   font-size: 11px;
   color: #92400e;
