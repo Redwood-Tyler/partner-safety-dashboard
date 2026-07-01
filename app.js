@@ -9,18 +9,6 @@
 
 'use strict';
 
-/* ── Partner name aliases (board label → data key) ───────────────────────── */
-const PARTNER_ALIASES = {
-  'Crisafulli Bros':    'Crisafulli',
-  'Crisafulli Bros.':   'Crisafulli',
-  'ABC Allbritten':     'Allbritten',
-  'Environmental Masters': 'Environment Masters',
-  'John C Flood':       'John C. Flood',
-  'HVAC Pro':           'Apollo',
-  'HVAC Pro (Apollo)':  'Apollo',
-};
-function normalizeName(n) { return PARTNER_ALIASES[n] || n; }
-
 /* ── Module-level state ───────────────────────────────────────────────────── */
 let allPartners  = [];   // analyzed partner objects
 let activeFilter = 'all';
@@ -152,7 +140,7 @@ function analyzeItems(items) {
     // Skip claims outside the fiscal year window
     if (!incidentDate || incidentDate < CONFIG.PERIOD_START || incidentDate > CONFIG.PERIOD_END) continue;
 
-    const partner = normalizeName(cv(item, CONFIG.COLS.PARTNER) || 'Unknown');
+    const partner = cv(item, CONFIG.COLS.PARTNER) || 'Unknown';
     const type    = cv(item, CONFIG.COLS.CLAIM_TYPE);
     const status  = cv(item, CONFIG.COLS.STATUS);
     const closed  = status === CONFIG.STATUS_CLOSED;
@@ -301,21 +289,9 @@ function renderGrid() {
 
   // Sort
   if (activeSort === 'rating') list.sort((a, b) => RATING_ORDER[a.overall] - RATING_ORDER[b.overall] || b.total - a.total);
-  else if (activeSort === 'name')    list.sort((a, b) => a.name.localeCompare(b.name));
-  else if (activeSort === 'total')   list.sort((a, b) => b.total - a.total);
-  else if (activeSort === 'open')    list.sort((a, b) => b.open  - a.open);
-  else if (activeSort === 'exprisk') {
-    function _expScore(p) {
-      const e = EXPOSURE_DATA[p.name];
-      if (!e || p.total === 0) return -1;
-      const r = [];
-      if (e.wc_payroll > 0 && PORT_FREQ.wc > 0)      r.push((p.wc  / (e.wc_payroll   / 1e6)) / PORT_FREQ.wc);
-      if (e.auto_vehicles > 0 && PORT_FREQ.auto > 0)  r.push((p.auto/ (e.auto_vehicles / 10 )) / PORT_FREQ.auto);
-      if (e.gl_revenue > 0 && PORT_FREQ.gl > 0)       r.push((p.gl  / (e.gl_revenue    / 1e7)) / PORT_FREQ.gl);
-      return r.length ? r.reduce((a, b) => a + b, 0) / r.length : -1;
-    }
-    list.sort((a, b) => _expScore(b) - _expScore(a));
-  }
+  else if (activeSort === 'name')  list.sort((a, b) => a.name.localeCompare(b.name));
+  else if (activeSort === 'total') list.sort((a, b) => b.total - a.total);
+  else if (activeSort === 'open')  list.sort((a, b) => b.open  - a.open);
 
   const grid = document.getElementById('grid');
   if (list.length === 0) {
@@ -558,4 +534,36 @@ function buildPBLFSection(partnerName) {
 
 /* ── UI event handlers ────────────────────────────────────────────────────── */
 
-/** Toggle a partner card's detail panel open/cl
+/** Toggle a partner card's detail panel open/closed. */
+function toggleDetail(cid) {
+  const detail = document.getElementById(cid + '-detail');
+  const toggle = document.getElementById(cid + '-toggle');
+  if (!detail) return;
+  const open = detail.classList.toggle('open');
+  if (toggle) toggle.textContent = open ? '▴ Hide' : '▾ Details';
+}
+
+/** Set the active rating filter and re-render the grid. */
+function setFilter(f) {
+  activeFilter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.toggle('active', t.dataset.filter === f));
+  renderGrid();
+}
+
+/** Set the active sort order and re-render the grid. */
+function setSort(v) {
+  activeSort = v;
+  renderGrid();
+}
+
+/* ── Entry point ──────────────────────────────────────────────────────────── */
+
+/**
+ * Initialize the dashboard.
+ * Analyzes the static CLAIMS_DATA snapshot and renders the full UI.
+ * Called on DOMContentLoaded in index.html.
+ */
+function initDashboard() {
+  document.getElementById('last-updated').textContent = 'Snapshot: ' + CONFIG.SNAPSHOT_DATE;
+  render(analyzeItems(CLAIMS_DATA));
+}
