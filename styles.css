@@ -3,7 +3,7 @@
  * Redwood Services · Partner Safety Scorecard Dashboard · FY 2025–26
  */
 
-/* ── Reset & base ─────────────────────────────────────────────────────────── */
+/* ── Reset & base ──────────────────────────────────────────────────────────── */
 :root { color-scheme: light; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -13,8 +13,8 @@ body {
   font-size: 13px;
 }
 
-/* ── Header ───────────────────────────────────────────────────────────────── */
-.header {
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.app-header {
   background: #1B3A6B;
   color: white;
   padding: 14px 20px;
@@ -22,10 +22,13 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+.app-header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+.header-logo { font-size: 24px; margin-right: 12px; }
+.header-left { display: flex; align-items: center; }
+.header-title { font-size: 16px; font-weight: 700; }
 .header-sub { font-size: 12px; color: #B8C9E8; margin-top: 2px; }
 .header-right { display: flex; align-items: center; gap: 12px; }
-.last-updated { font-size: 11px; color: #B8C9E8; }
+.header-date { font-size: 11px; color: #B8C9E8; }
 
 /* ── Portfolio summary bar ────────────────────────────────────────────────── */
 .portfolio-bar {
@@ -51,7 +54,7 @@ body {
 .pstat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
 
 /* ── Filter & sort controls ───────────────────────────────────────────────── */
-.controls {
+.controls-bar {
   padding: 12px 20px;
   display: flex;
   align-items: center;
@@ -77,8 +80,16 @@ body {
 .ftab[data-filter="NEEDS IMPROVEMENT"].active{ background: #C05621; }
 .ftab[data-filter="MONITOR"].active          { background: #856404; }
 .ftab[data-filter="GOOD"].active             { background: #155724; }
-.sort-select {
+.sort-controls {
   margin-left: auto;
+}
+.sort-controls label {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sort-controls select {
   padding: 5px 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -89,7 +100,7 @@ body {
 }
 
 /* ── Partner card grid ────────────────────────────────────────────────────── */
-.grid {
+.card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 12px;
@@ -107,7 +118,7 @@ body {
 .card:hover { box-shadow: 0 4px 12px rgba(27,58,107,0.12); transform: translateY(-1px); }
 
 /* Card header */
-.card-header { padding: 12px 14px 10px; display: flex; align-items: flex-start; justify-content: space-between; }
+.card-header { padding: 12px 14px 10px; display: flex; align-items: flex-start; justify-content: space-between; cursor: pointer; }
 .card-name { font-size: 14px; font-weight: 700; color: #1B3A6B; flex: 1; }
 
 /* Rating badges */
@@ -140,7 +151,7 @@ body {
 .stat-label { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
 
 /* Card footer */
-.card-footer { padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; }
+.card-footer { padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
 .trend-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
 .trend-up   { background: #FDE8E8; color: #991b1b; }
 .trend-down { background: #D4EDDA; color: #155724; }
@@ -252,4 +263,10 @@ body {
   font-size: 11px;
   color: #92400e;
   text-align: center;
+}
+
+/* ── Main content wrapper ─────────────────────────────────────────────────── */
+main {
+  margin: 0;
+  padding: 0;
 }
